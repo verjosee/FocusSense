@@ -333,4 +333,29 @@ class FocusTimerEngineTest {
         assertFalse(engineWithSensors.timerState.value.isProximityNear)
         assertEquals(5.0f, engineWithSensors.timerState.value.proximityDistance ?: -1f, 0.01f)
     }
+
+    @Test
+    fun testCompleteThenBuildAndConsumeSessionReturnsValidSession() = runTest {
+        val timerEngine = DefaultFocusTimerEngine(
+            timeProvider = fakeTimeProvider,
+            engineScope = backgroundScope
+        )
+        timerEngine.start(25)
+        fakeTimeProvider.advanceTime(25 * 60L)
+
+        // Complete called (e.g. by tickJob or engine completion)
+        val completedSession = timerEngine.complete()
+        assertNotNull(completedSession)
+        assertEquals(SessionStatus.COMPLETED, completedSession!!.status)
+
+        // ViewModel consumes session for save dialog
+        val consumedByViewModel = timerEngine.buildAndConsumeSession(SessionStatus.COMPLETED, "Great study session")
+        assertNotNull(consumedByViewModel)
+        assertEquals("Great study session", consumedByViewModel!!.notes)
+        assertEquals(SessionStatus.COMPLETED, consumedByViewModel.status)
+
+        // Subsequent attempt to consume must return null (protection against duplicate saves)
+        val duplicateAttempt = timerEngine.buildAndConsumeSession(SessionStatus.COMPLETED)
+        assertNull(duplicateAttempt)
+    }
 }

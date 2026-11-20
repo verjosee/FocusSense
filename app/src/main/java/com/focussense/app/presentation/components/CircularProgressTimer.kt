@@ -23,9 +23,11 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.focussense.app.ui.theme.LocalExtendedColors
 import com.focussense.app.ui.theme.SkyBlue
 import com.focussense.app.ui.theme.SoftViolet
 
@@ -45,7 +47,7 @@ fun CircularProgressTimer(
         label = "timerProgressAnimation"
     )
 
-    val trackColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+    val trackColor = LocalExtendedColors.current.surfaceBorder.copy(alpha = 0.7f)
 
     Box(
         modifier = modifier.size(size),
@@ -95,6 +97,7 @@ fun CircularProgressTimer(
                     fontSize = 44.sp,
                     letterSpacing = (-1).sp
                 ),
+                textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onBackground
             )
 

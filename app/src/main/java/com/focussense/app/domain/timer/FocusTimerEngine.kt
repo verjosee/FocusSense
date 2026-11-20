@@ -55,6 +55,7 @@ class DefaultFocusTimerEngine(
 
     @Volatile
     private var isSessionConsumed: Boolean = false
+    private var lastCompletedSession: FocusSession? = null
 
     override fun start(durationMinutes: Int) {
         val safeMinutes = if (durationMinutes > 0) durationMinutes else 25
@@ -68,6 +69,7 @@ class DefaultFocusTimerEngine(
         lightSamplesSum = 0.0
         lightSamplesCount = 0
         isSessionConsumed = false
+        lastCompletedSession = null
 
         _timerState.value = TimerState(
             mode = TimerMode.RUNNING,
@@ -175,7 +177,9 @@ class DefaultFocusTimerEngine(
             )
         }
 
-        return buildAndConsumeSession(SessionStatus.COMPLETED)
+        val session = buildAndConsumeSession(SessionStatus.COMPLETED)
+        lastCompletedSession = session
+        return session
     }
 
     override fun reset(targetDurationMinutes: Int) {
@@ -190,6 +194,7 @@ class DefaultFocusTimerEngine(
         lightSamplesSum = 0.0
         lightSamplesCount = 0
         isSessionConsumed = false
+        lastCompletedSession = null
 
         _timerState.value = TimerState(
             mode = TimerMode.IDLE,
@@ -213,6 +218,11 @@ class DefaultFocusTimerEngine(
 
     @Synchronized
     override fun buildAndConsumeSession(status: SessionStatus, notes: String?): FocusSession? {
+        val cached = lastCompletedSession
+        if (cached != null) {
+            lastCompletedSession = null
+            return if (notes != null) cached.copy(notes = notes) else cached
+        }
         if (isSessionConsumed) return null
         if (sessionStartTime == 0L && accumulatedElapsedSeconds == 0L) return null
 

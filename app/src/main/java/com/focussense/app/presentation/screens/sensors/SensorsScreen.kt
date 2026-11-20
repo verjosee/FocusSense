@@ -166,7 +166,7 @@ fun SensorsScreenContent(
                 Text(
                     text = "• Accelerometer: Automatically detects when you pick up or shake your phone during a focus session, flagging movement interruptions to help train focus discipline.\n\n" +
                             "• Ambient Light: Monitors desk illumination. Subdued lighting (< 200 lx) may cause eye fatigue, while moderate illumination (200 - 500 lx) optimizes sustained cognitive attention.\n\n" +
-                            "• Proximity Sensor: Senses phone orientation or physical obstruction (such as placing your phone face-down on your desk to enter deep focus) on devices where an ambient light sensor is unavailable.",
+                            "• Proximity Sensor: Monitors physical obstacle proximity in front of the device to detect close surface coverage, maintaining distraction-free focus on devices where an ambient light sensor is unavailable.",
                     style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 22.sp),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

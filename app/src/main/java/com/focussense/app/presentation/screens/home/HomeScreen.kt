@@ -385,7 +385,7 @@ fun HomeScreenContent(
                 }
             }
         } else {
-            items(uiState.recentSessions) { session ->
+            items(uiState.recentSessions, key = { it.id }) { session ->
                 SessionItemCard(session = session)
             }
         }
