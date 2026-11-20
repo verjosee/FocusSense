@@ -13,6 +13,10 @@ data class TimerState(
     val averageLightLux: Float? = null,
     val currentLux: Float? = null,
     val currentLightCategory: LightCategory? = null,
+    val isProximityNear: Boolean = false,
+    val proximityDistance: Float? = null,
+    val isProximitySupported: Boolean = false,
+    val isLightSupported: Boolean = true,
     val isMotionAlertActive: Boolean = false,
     val sessionStartTime: Long = 0L
 ) {

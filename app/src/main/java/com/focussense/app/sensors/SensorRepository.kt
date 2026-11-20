@@ -3,6 +3,8 @@ package com.focussense.app.sensors
 import android.content.Context
 import com.focussense.app.sensors.model.AccelerationData
 import com.focussense.app.sensors.model.LightData
+import com.focussense.app.sensors.model.ProximityData
+import com.focussense.app.sensors.model.SecondarySensorType
 import kotlinx.coroutines.flow.StateFlow
 
 /**
@@ -20,6 +22,11 @@ interface SensorRepository {
     val lightFlow: StateFlow<LightData>
 
     /**
+     * StateFlow emitting real-time proximity readings and near/far status.
+     */
+    val proximityFlow: StateFlow<ProximityData>
+
+    /**
      * True if the device hardware supports an accelerometer sensor.
      */
     val isAccelerometerAvailable: Boolean
@@ -28,6 +35,22 @@ interface SensorRepository {
      * True if the device hardware supports an ambient light sensor.
      */
     val isLightSensorAvailable: Boolean
+
+    /**
+     * True if the device hardware supports a physical proximity sensor.
+     */
+    val isProximitySensorAvailable: Boolean
+
+    /**
+     * Hardware name of the proximity sensor, if supported.
+     */
+    val proximitySensorName: String
+        get() = "Proximity Sensor"
+
+    /**
+     * The active secondary sensor type (LIGHT, PROXIMITY, or NONE) based on hardware availability.
+     */
+    val activeSecondarySensorType: SecondarySensorType
 
     /**
      * Starts monitoring hardware sensors. Reference-counted to support multiple screens/consumers.

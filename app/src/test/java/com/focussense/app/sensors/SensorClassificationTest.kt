@@ -3,6 +3,8 @@ package com.focussense.app.sensors
 import com.focussense.app.sensors.model.AccelerationData
 import com.focussense.app.sensors.model.LightCategory
 import com.focussense.app.sensors.model.LightData
+import com.focussense.app.sensors.model.ProximityData
+import com.focussense.app.sensors.model.SecondarySensorType
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -115,5 +117,90 @@ class SensorClassificationTest {
         assertEquals(0f, defaultData.lux, 0.0001f)
         assertEquals(LightCategory.VERY_DIM, defaultData.category)
         assertTrue(defaultData.timestamp > 0L)
+    }
+
+    // --- Proximity Sensor Classification & Model Tests ---
+
+    @Test
+    fun testProximityIsNearWhenDistanceLessThanMaxRange() {
+        // Typical hardware reporting near state: distance (0.0cm) < maxRange (5.0cm)
+        assertTrue(ProximityMonitor.isNear(0.0f, maxRange = 5.0f))
+        assertTrue(ProximityMonitor.isNear(1.5f, maxRange = 5.0f))
+        assertTrue(ProximityMonitor.isNear(4.99f, maxRange = 5.0f))
+    }
+
+    @Test
+    fun testProximityIsFarWhenDistanceEqualsOrEqualToMaxRange() {
+        // Far state: distance at or beyond max range
+        assertFalse(ProximityMonitor.isNear(5.0f, maxRange = 5.0f))
+        assertFalse(ProximityMonitor.isNear(8.0f, maxRange = 5.0f))
+        assertFalse(ProximityMonitor.isNear(10.0f, maxRange = 5.0f))
+    }
+
+    @Test
+    fun testProximityDefaultMaxRangeClassification() {
+        // Uses default max range (5.0 cm)
+        assertTrue(ProximityMonitor.isNear(0.0f))
+        assertTrue(ProximityMonitor.isNear(2.0f))
+        assertFalse(ProximityMonitor.isNear(5.0f))
+        assertFalse(ProximityMonitor.isNear(6.0f))
+    }
+
+    @Test
+    fun testProximityZeroMaxRangeBoundary() {
+        // Sensors with binary 0.0 reporting
+        assertTrue(ProximityMonitor.isNear(0.0f, maxRange = 0.0f))
+        assertFalse(ProximityMonitor.isNear(1.0f, maxRange = 0.0f))
+    }
+
+    @Test
+    fun testProximityClassifyStatusNearAndFar() {
+        assertEquals("Near", ProximityMonitor.classifyStatus(0.0f, 5.0f))
+        assertEquals("Near", ProximityMonitor.classifyStatus(2.5f, 5.0f))
+        assertEquals("Far", ProximityMonitor.classifyStatus(5.0f, 5.0f))
+        assertEquals("Far", ProximityMonitor.classifyStatus(7.0f, 5.0f))
+    }
+
+    @Test
+    fun testProximityDataDefaults() {
+        val defaultData = ProximityData()
+        assertEquals(0.0f, defaultData.distance, 0.0001f)
+        assertEquals(5.0f, defaultData.maxRange, 0.0001f)
+        assertFalse(defaultData.isNear)
+        assertTrue(defaultData.isFar)
+        assertEquals("Far", defaultData.statusText)
+        assertTrue(defaultData.timestamp > 0L)
+    }
+
+    @Test
+    fun testProximityDataNearState() {
+        val nearData = ProximityData(
+            distance = 0.0f,
+            maxRange = 5.0f,
+            isNear = true
+        )
+        assertTrue(nearData.isNear)
+        assertFalse(nearData.isFar)
+        assertEquals("Near", nearData.statusText)
+    }
+
+    @Test
+    fun testProximityDataFarState() {
+        val farData = ProximityData(
+            distance = 5.0f,
+            maxRange = 5.0f,
+            isNear = false
+        )
+        assertFalse(farData.isNear)
+        assertTrue(farData.isFar)
+        assertEquals("Far", farData.statusText)
+    }
+
+    @Test
+    fun testSecondarySensorTypeEnumValues() {
+        assertEquals(3, SecondarySensorType.values().size)
+        assertTrue(SecondarySensorType.values().contains(SecondarySensorType.LIGHT))
+        assertTrue(SecondarySensorType.values().contains(SecondarySensorType.PROXIMITY))
+        assertTrue(SecondarySensorType.values().contains(SecondarySensorType.NONE))
     }
 }

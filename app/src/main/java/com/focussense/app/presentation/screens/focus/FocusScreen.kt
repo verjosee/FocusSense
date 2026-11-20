@@ -402,20 +402,25 @@ fun FocusScreenContent(
                         )
 
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            val isLightActive = timerState.isLightSupported
                             Text(
-                                text = "Ambient Light",
+                                text = if (isLightActive) "Ambient Light" else "Proximity",
                                 style = MaterialTheme.typography.labelSmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                             Spacer(modifier = Modifier.height(4.dp))
                             Text(
-                                text = if (timerState.currentLux != null) {
-                                    String.format(Locale.US, "%.0f lx", timerState.currentLux)
+                                text = if (isLightActive) {
+                                    if (timerState.currentLux != null) {
+                                        String.format(Locale.US, "%.0f lx", timerState.currentLux)
+                                    } else {
+                                        "Stable"
+                                    }
                                 } else {
-                                    "Stable"
+                                    if (timerState.isProximityNear) "Near (Covered)" else "Far (Clear)"
                                 },
                                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                                color = SkyBlue
+                                color = if (!isLightActive && timerState.isProximityNear) WarningAmber else SkyBlue
                             )
                         }
 

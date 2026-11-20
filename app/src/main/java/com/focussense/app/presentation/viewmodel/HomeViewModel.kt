@@ -12,6 +12,7 @@ import com.focussense.app.domain.timer.FocusTimerEngine
 import com.focussense.app.domain.timer.TimerState
 import com.focussense.app.sensors.SensorRepository
 import com.focussense.app.sensors.model.LightCategory
+import com.focussense.app.sensors.model.SecondarySensorType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -34,6 +35,10 @@ data class HomeUiState(
     val isDeviceMoving: Boolean = false,
     val isAccelerometerSupported: Boolean = true,
     val isLightSensorSupported: Boolean = true,
+    val isProximitySensorSupported: Boolean = false,
+    val isProximityNear: Boolean = false,
+    val proximityDistance: Float = 0f,
+    val activeSecondarySensorType: SecondarySensorType = SecondarySensorType.LIGHT,
     val defaultFocusMinutes: Int = 25
 )
 
@@ -47,7 +52,9 @@ class HomeViewModel(
     private val _uiState = MutableStateFlow(
         HomeUiState(
             isAccelerometerSupported = sensorRepository.isAccelerometerAvailable,
-            isLightSensorSupported = sensorRepository.isLightSensorAvailable
+            isLightSensorSupported = sensorRepository.isLightSensorAvailable,
+            isProximitySensorSupported = sensorRepository.isProximitySensorAvailable,
+            activeSecondarySensorType = sensorRepository.activeSecondarySensorType
         )
     )
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
@@ -122,6 +129,17 @@ class HomeViewModel(
                     current.copy(
                         accelerometerMagnitude = accData.magnitude,
                         isDeviceMoving = accData.isSignificantMovement
+                    )
+                }
+            }
+        }
+
+        viewModelScope.launch {
+            sensorRepository.proximityFlow.collect { proxData ->
+                _uiState.update { current ->
+                    current.copy(
+                        isProximityNear = proxData.isNear,
+                        proximityDistance = proxData.distance
                     )
                 }
             }

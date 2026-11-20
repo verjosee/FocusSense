@@ -30,10 +30,12 @@ import androidx.compose.ui.unit.sp
 import com.focussense.app.presentation.components.AccelerometerCard
 import com.focussense.app.presentation.components.AmbientLightCard
 import com.focussense.app.presentation.components.FocusIcons
+import com.focussense.app.presentation.components.ProximityCard
 import com.focussense.app.presentation.viewmodel.SensorsUiState
 import com.focussense.app.presentation.viewmodel.SensorsViewModel
 import com.focussense.app.sensors.model.AccelerationData
 import com.focussense.app.sensors.model.LightData
+import com.focussense.app.sensors.model.ProximityData
 import com.focussense.app.ui.theme.LocalExtendedColors
 import com.focussense.app.ui.theme.SkyBlue
 import com.focussense.app.ui.theme.SoftViolet
@@ -106,11 +108,29 @@ fun SensorsScreenContent(
             isSupported = uiState.isAccelerometerAvailable
         )
 
-        // Ambient Light Sensor Card
-        AmbientLightCard(
-            lightData = lightData,
-            isSupported = uiState.isLightSensorAvailable
-        )
+        // Dynamic Secondary Sensor Cards: Ambient Light and/or Proximity
+        if (uiState.isLightSensorAvailable) {
+            AmbientLightCard(
+                lightData = lightData,
+                isSupported = true
+            )
+        }
+
+        if (uiState.isProximitySensorAvailable) {
+            ProximityCard(
+                proximityData = uiState.proximityData,
+                isSupported = true,
+                sensorName = uiState.proximitySensorName
+            )
+        }
+
+        // If neither secondary sensor is present, show unsupported placeholder
+        if (!uiState.isLightSensorAvailable && !uiState.isProximitySensorAvailable) {
+            AmbientLightCard(
+                lightData = lightData,
+                isSupported = false
+            )
+        }
 
         // Informational Context Card
         Card(
@@ -145,7 +165,8 @@ fun SensorsScreenContent(
 
                 Text(
                     text = "• Accelerometer: Automatically detects when you pick up or shake your phone during a focus session, flagging movement interruptions to help train focus discipline.\n\n" +
-                            "• Ambient Light: Monitors desk illumination. Subdued lighting (< 200 lx) may cause eye fatigue, while moderate illumination (200 - 500 lx) optimizes sustained cognitive attention.",
+                            "• Ambient Light: Monitors desk illumination. Subdued lighting (< 200 lx) may cause eye fatigue, while moderate illumination (200 - 500 lx) optimizes sustained cognitive attention.\n\n" +
+                            "• Proximity Sensor: Senses phone orientation or physical obstruction (such as placing your phone face-down on your desk to enter deep focus) on devices where an ambient light sensor is unavailable.",
                     style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 22.sp),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

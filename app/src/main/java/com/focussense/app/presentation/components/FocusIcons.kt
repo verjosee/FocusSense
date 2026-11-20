@@ -251,4 +251,39 @@ object FocusIcons {
             arcTo(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 8f, 5f)
         }
     }.build()
+
+    // Proximity Sensor Icon (Device with proximity waves)
+    val ProximitySensor: ImageVector = ImageVector.Builder(
+        name = "ProximitySensor",
+        defaultWidth = 24.dp,
+        defaultHeight = 24.dp,
+        viewportWidth = 24f,
+        viewportHeight = 24f
+    ).apply {
+        path(
+            stroke = SolidColor(Color.White),
+            strokeLineWidth = 2f,
+            strokeLineCap = StrokeCap.Round,
+            strokeLineJoin = StrokeJoin.Round
+        ) {
+            // Emitter / phone icon
+            moveTo(8f, 21f)
+            lineTo(16f, 21f)
+            arcTo(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = false, 18f, 19f)
+            lineTo(18f, 11f)
+            arcTo(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = false, 16f, 9f)
+            lineTo(8f, 9f)
+            arcTo(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = false, 6f, 11f)
+            lineTo(6f, 19f)
+            arcTo(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = false, 8f, 21f)
+            // Sensor indicator dot
+            moveTo(12f, 12f)
+            lineTo(12.01f, 12f)
+            // Proximity waves above phone
+            moveTo(9f, 6f)
+            arcTo(4f, 4f, 0f, isMoreThanHalf = false, isPositiveArc = true, 15f, 6f)
+            moveTo(6.5f, 3.5f)
+            arcTo(7.5f, 7.5f, 0f, isMoreThanHalf = false, isPositiveArc = true, 17.5f, 3.5f)
+        }
+    }.build()
 }

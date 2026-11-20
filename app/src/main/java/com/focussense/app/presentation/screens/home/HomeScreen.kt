@@ -46,6 +46,7 @@ import com.focussense.app.presentation.components.StatCard
 import com.focussense.app.presentation.viewmodel.HomeUiState
 import com.focussense.app.presentation.viewmodel.HomeViewModel
 import com.focussense.app.sensors.model.LightCategory
+import com.focussense.app.sensors.model.SecondarySensorType
 import com.focussense.app.ui.theme.LocalExtendedColors
 import com.focussense.app.ui.theme.SkyBlue
 import com.focussense.app.ui.theme.SoftViolet
@@ -293,7 +294,7 @@ fun HomeScreenContent(
                             }
                         }
 
-                        // Light badge
+                        // Secondary sensor badge (Ambient Light or Proximity)
                         Box(
                             modifier = Modifier
                                 .weight(1f)
@@ -302,23 +303,36 @@ fun HomeScreenContent(
                                 .padding(12.dp)
                         ) {
                             Column {
+                                val isProximityActive = uiState.activeSecondarySensorType == SecondarySensorType.PROXIMITY
                                 Text(
-                                    text = "Ambient Light",
+                                    text = if (isProximityActive) "Proximity" else "Ambient Light",
                                     style = MaterialTheme.typography.labelSmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                                 Spacer(modifier = Modifier.height(4.dp))
-                                Text(
-                                    text = if (uiState.currentLux != null) {
-                                        String.format(Locale.US, "%.0f lx • %s", uiState.currentLux, uiState.currentLightCategory?.name ?: "OK")
-                                    } else {
-                                        "Normal Light"
-                                    },
-                                    style = MaterialTheme.typography.titleSmall.copy(
-                                        fontWeight = FontWeight.Bold
-                                    ),
-                                    color = SkyBlue
-                                )
+                                if (isProximityActive) {
+                                    val proxText = if (uiState.isProximityNear) "Near (Covered)" else "Far (Clear)"
+                                    val proxColor = if (uiState.isProximityNear) WarningAmber else SuccessGreen
+                                    Text(
+                                        text = proxText,
+                                        style = MaterialTheme.typography.titleSmall.copy(
+                                            fontWeight = FontWeight.Bold
+                                        ),
+                                        color = proxColor
+                                    )
+                                } else {
+                                    Text(
+                                        text = if (uiState.currentLux != null) {
+                                            String.format(Locale.US, "%.0f lx • %s", uiState.currentLux, uiState.currentLightCategory?.name ?: "OK")
+                                        } else {
+                                            "Normal Light"
+                                        },
+                                        style = MaterialTheme.typography.titleSmall.copy(
+                                            fontWeight = FontWeight.Bold
+                                        ),
+                                        color = SkyBlue
+                                    )
+                                }
                             }
                         }
                     }

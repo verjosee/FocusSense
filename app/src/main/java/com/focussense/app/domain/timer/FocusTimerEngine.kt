@@ -40,6 +40,7 @@ class DefaultFocusTimerEngine(
     private var tickJob: Job? = null
     private var accelerometerJob: Job? = null
     private var lightJob: Job? = null
+    private var proximityJob: Job? = null
     private var motionAlertJob: Job? = null
 
     private var targetDurationSeconds: Long = 25 * 60L
@@ -79,6 +80,10 @@ class DefaultFocusTimerEngine(
             averageLightLux = null,
             currentLux = null,
             currentLightCategory = null,
+            isProximityNear = false,
+            proximityDistance = null,
+            isProximitySupported = sensorRepository?.isProximitySensorAvailable ?: false,
+            isLightSupported = sensorRepository?.isLightSensorAvailable ?: false,
             isMotionAlertActive = false,
             sessionStartTime = sessionStartTime
         )
@@ -197,6 +202,10 @@ class DefaultFocusTimerEngine(
             averageLightLux = null,
             currentLux = null,
             currentLightCategory = null,
+            isProximityNear = false,
+            proximityDistance = null,
+            isProximitySupported = sensorRepository?.isProximitySensorAvailable ?: false,
+            isLightSupported = sensorRepository?.isLightSensorAvailable ?: false,
             isMotionAlertActive = false,
             sessionStartTime = 0L
         )
@@ -299,19 +308,38 @@ class DefaultFocusTimerEngine(
             }
         }
 
-        lightJob?.cancel()
-        lightJob = engineScope.launch {
-            repo.lightFlow.collect { data ->
-                if (_timerState.value.mode != TimerMode.RUNNING) return@collect
-                lightSamplesSum += data.lux
-                lightSamplesCount++
-                val avgLux = (lightSamplesSum / lightSamplesCount).toFloat()
-                _timerState.update {
-                    it.copy(
-                        currentLux = data.lux,
-                        currentLightCategory = data.category,
-                        averageLightLux = avgLux
-                    )
+        if (repo.isLightSensorAvailable) {
+            lightJob?.cancel()
+            lightJob = engineScope.launch {
+                repo.lightFlow.collect { data ->
+                    if (_timerState.value.mode != TimerMode.RUNNING) return@collect
+                    lightSamplesSum += data.lux
+                    lightSamplesCount++
+                    val avgLux = (lightSamplesSum / lightSamplesCount).toFloat()
+                    _timerState.update {
+                        it.copy(
+                            currentLux = data.lux,
+                            currentLightCategory = data.category,
+                            averageLightLux = avgLux
+                        )
+                    }
+                }
+            }
+        }
+
+        if (repo.isProximitySensorAvailable) {
+            proximityJob?.cancel()
+            proximityJob = engineScope.launch {
+                repo.proximityFlow.collect { data ->
+                    if (_timerState.value.mode != TimerMode.RUNNING) return@collect
+                    _timerState.update {
+                        it.copy(
+                            isProximityNear = data.isNear,
+                            proximityDistance = data.distance,
+                            isProximitySupported = repo.isProximitySensorAvailable,
+                            isLightSupported = repo.isLightSensorAvailable
+                        )
+                    }
                 }
             }
         }
@@ -322,6 +350,8 @@ class DefaultFocusTimerEngine(
         accelerometerJob = null
         lightJob?.cancel()
         lightJob = null
+        proximityJob?.cancel()
+        proximityJob = null
         motionAlertJob?.cancel()
         motionAlertJob = null
         sensorRepository?.stopListening()
