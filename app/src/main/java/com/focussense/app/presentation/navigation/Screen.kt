@@ -4,14 +4,15 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.focussense.app.presentation.components.FocusIcons
 
 sealed class Screen(val route: String, val title: String, val icon: ImageVector) {
-    object Home : Screen("home", "Home", FocusIcons.Home)
-    object Focus : Screen("focus", "Focus", FocusIcons.Timer)
-    object Sensors : Screen("sensors", "Sensors", FocusIcons.Sensors)
-    object History : Screen("history", "History", FocusIcons.History)
-    object Statistics : Screen("statistics", "Stats", FocusIcons.Statistics)
-    object Settings : Screen("settings", "Settings", FocusIcons.Settings)
+    data object Home : Screen("home", "Home", FocusIcons.Home)
+    data object Focus : Screen("focus", "Focus", FocusIcons.Timer)
+    data object Sensors : Screen("sensors", "Sensors", FocusIcons.Sensors)
+    data object History : Screen("history", "History", FocusIcons.History)
+    data object Statistics : Screen("statistics", "Stats", FocusIcons.Statistics)
+    data object Settings : Screen("settings", "Settings", FocusIcons.Settings)
 
     companion object {
-        val bottomNavItems = listOf(Home, Focus, Sensors, History, Statistics)
+        val bottomNavItems: List<Screen>
+            get() = listOf(Home, Focus, Sensors, History, Statistics)
     }
 }
