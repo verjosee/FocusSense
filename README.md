@@ -1,29 +1,22 @@
-# FocusSense — Aplikasi Manajemen Fokus Belajar & Pemantau Sensor Lingkungan Android
+# FocusSense
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android" />
-  <img src="https://img.shields.io/badge/Kotlin-2.2.10-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white" alt="Kotlin" />
-  <img src="https://img.shields.io/badge/Jetpack%20Compose-Material%203-4285F4?style=for-the-badge&logo=jetpackcompose&logoColor=white" alt="Compose" />
-  <img src="https://img.shields.io/badge/SQLite-Room%202.8.5-4479A1?style=for-the-badge&logo=sqlite&logoColor=white" alt="Room" />
-  <img src="https://img.shields.io/badge/Sensors-Accelerometer%20%7C%20Proximity%20%7C%20Light-009688?style=for-the-badge" alt="Sensors" />
-  <img src="https://img.shields.io/badge/Visibility-Public%20Repository-brightgreen?style=for-the-badge" alt="Public" />
-</p>
+Aplikasi Android untuk membantu mengatur waktu belajar dengan teknik fokus serta memanfaatkan sensor bawaan HP untuk memantau pergerakan dan lingkungan saat belajar.
 
 ---
 
-## 📌 Daftar Isi / Table of Contents
+## Daftar Isi / Table of Contents
 - [Versi Bahasa Indonesia](#-versi-bahasa-indonesia)
-  1. [Nama & Deskripsi Aplikasi](#1-nama--deskripsi-aplikasi)
-  2. [Fitur-Fitur Utama](#2-fitur-fitur-utama)
-  3. [Teknologi & Arsitektur](#3-teknologi--arsitektur)
-  4. [Sensor Hardware & Fungsinya](#4-sensor-hardware--fungsinya)
-  5. [Screenshot Tampilan Aplikasi](#5-screenshot-tampilan-aplikasi)
-  6. [Panduan Menjalankan Aplikasi](#6-panduan-menjalankan-aplikasi)
+  1. [Tentang Aplikasi](#1-tentang-aplikasi)
+  2. [Fitur Aplikasi](#2-fitur-aplikasi)
+  3. [Teknologi yang Digunakan](#3-teknologi-yang-digunakan)
+  4. [Sensor yang Digunakan](#4-sensor-yang-digunakan)
+  5. [Screenshot Aplikasi](#5-screenshot-aplikasi)
+  6. [Cara Menjalankan Aplikasi](#6-cara-menjalankan-aplikasi)
 - [English Version](#-english-version)
-  1. [Application Name & Description](#1-application-name--description)
-  2. [Key Features](#2-key-features)
-  3. [Technology Stack & Architecture](#3-technology-stack--architecture)
-  4. [Hardware Sensors & Functionality](#4-hardware-sensors--functionality)
+  1. [About the Application](#1-about-the-application)
+  2. [Features](#2-features)
+  3. [Technologies Used](#3-technologies-used)
+  4. [Sensors Used](#4-sensors-used)
   5. [Application Screenshots](#5-application-screenshots)
   6. [How to Run the Application](#6-how-to-run-the-application)
 
@@ -31,162 +24,123 @@
 
 # 🇮🇩 VERSI BAHASA INDONESIA
 
-## 1. Nama & Deskripsi Aplikasi
+## 1. Tentang Aplikasi
 
-**Nama Aplikasi:** **FocusSense**  
-**Paket Aplikasi:** `com.focussense.app`  
-**Target Pengguna:** Pelajar, Mahasiswa, dan Profesional yang ingin meningkatkan produktivitas serta fokus belajar bebas distraksi.
+**FocusSense** adalah aplikasi pengatur waktu belajar (timer fokus) yang dirancang untuk membantu siswa belajar dengan lebih teratur dan bebas dari gangguan ponsel.
 
-### Deskripsi
-**FocusSense** adalah aplikasi Android berbasis *productivity & ergonomics* yang menggabungkan teknik manajemen waktu Pomodoro dengan pemantauan sensor perangkat keras (*hardware sensors*) secara *real-time*. 
-
-Berbeda dengan aplikasi pengatur waktu biasa, FocusSense memanfaatkan sensor fisik pada *smartphone* untuk mengawasi kondisi lingkungan dan perilaku pengguna saat sesi belajar berlangsung:
-- **Mendeteksi Gangguan Fisik:** Mengetahui saat perangkat diangkat, digeser, atau digoyangkan ketika pengguna seharusnya fokus.
-- **Memantau Kondisi Lingkungan:** Mengukur pencahayaan ruangan atau jarak perangkat guna menjaga ergonomi belajar yang optimal.
-- **Pencatatan Refleksi & Evaluasi:** Menyimpan data sesi belajar beserta evaluasi gerakan dan pencahayaan secara otomatis ke database lokal.
+Aplikasi ini menggabungkan teknik manajemen waktu belajar dengan sensor fisik yang ada di dalam *smartphone*. Ketika sesi fokus sedang berlangsung, FocusSense dapat mendeteksi apakah ponsel diangkat atau digerakkan, serta menampilkan informasi sensor perangkat secara langsung untuk mendukung suasana belajar yang kondusif.
 
 ---
 
-## 2. Fitur-Fitur Utama
+## 2. Fitur Aplikasi
 
-| Fitur | Deskripsi |
+Berikut adalah fitur-fitur yang tersedia di dalam aplikasi FocusSense:
+
+1. **Timer Fokus Belajar**
+   - Menghitung mundur waktu belajar dengan tampilan lingkaran progres (*circular progress*) yang jelas.
+   - Pilihan durasi belajar: 15 menit, 25 menit (standar Pomodoro), 45 menit, dan 60 menit.
+   - Tombol kendali: Mulai (*Start*), Jeda (*Pause*), Lanjutkan (*Resume*), dan Selesai/Berhenti (*Stop*).
+
+2. **Peringatan Gerakan Ponsel (*Motion Alert*)**
+   - Mendeteksi jika ponsel digerakkan atau diangkat saat sesi belajar aktif.
+   - Memberikan tanda peringatan visual dan getaran agar pengguna meletakkan kembali ponsel dan fokus belajar.
+
+3. **Halaman Pemantau Sensor (*Sensors Screen*)**
+   - Menampilkan daftar sensor perangkat keras yang aktif secara langsung (*real-time*).
+   - Menampilkan nilai koordinat percepatan gerak serta status sensor jarak/cahaya.
+
+4. **Riwayat Sesi Belajar (*History*)**
+   - Menyimpan seluruh data sesi belajar (selesai maupun terhenti) ke database lokal perangkat.
+   - Mencatat waktu mulai, durasi belajar nyata, dan jumlah gerakan ponsel yang terdeteksi.
+   - Menyediakan fitur untuk menambah dan mengedit catatan refleksi belajar pada setiap sesi.
+
+5. **Statistik Belajar (*Statistics*)**
+   - Menampilkan ringkasan total waktu belajar, durasi belajar hari ini, dan jumlah sesi yang selesai.
+   - Menyediakan grafik batang aktivitas 7 hari terakhir untuk melihat kebiasaan belajar mingguan.
+
+6. **Pengaturan Aplikasi (*Settings*)**
+   - Pilihan tema tampilan: Mode Gelap (*Dark*), Mode Terang (*Light*), atau Mengikuti Sistem.
+   - Mengatur durasi belajar bawaan (*default*).
+   - Menghidupkan atau mematikan fitur peringatan sensor gerak.
+   - Fitur hapus data riwayat belajar jika ingin mengulang dari awal.
+
+---
+
+## 3. Teknologi yang Digunakan
+
+Aplikasi ini dibangun menggunakan teknologi resmi dan standar pengembangan aplikasi Android modern:
+
+| Teknologi | Penjelasan Sederhana |
 | :--- | :--- |
-| **Monotonic Focus Timer** | Penghitung waktu presisi tinggi berbasis `SystemClock.elapsedRealtime()` yang tidak terpengaruh oleh perubahan jam sistem maupun mode hemat daya (*Doze mode*). |
-| **Preset Durasi Cepat** | Pilihan durasi fokus instan: 15 menit, 25 menit (standar Pomodoro), 45 menit, dan 60 menit. |
-| **Real-Time Motion Alert** | Peringatan visual dan getar ketika perangkat diangkat atau digerakkan secara berlebih saat sesi fokus sedang aktif. |
-| **Hardware Telemetry Dashboard** | Pemantauan langsung status sensor fisik, nilai pembacaan live (*real-time*), batas ukur (*range*), daya, dan rekomendasi ergonomis. |
-| **Dynamic Sensor Adaptation** | Kemampuan adaptasi otomatis terhadap perangkat keras: mendeteksi sensor cahaya (*Ambient Light*), dan secara cerdas beralih ke sensor jarak (*Proximity*) apabila sensor cahaya tidak tersedia pada perangkat tertentu (contoh: Samsung Galaxy M12). |
-| **Riwayat Sesi (History) & Catatan** | Penyimpanan sesi belajar (*Completed*, *Interrupted*, *Cancelled*) lengkap dengan waktu, durasi riil, jumlah gerakan, dan catatan refleksi yang dapat diedit. |
-| **Statistik & Grafik Mingguan** | Dashboard visualisasi data belajar dengan grafik batang 7 hari terakhir, total jam belajar, sesi terselesaikan, dan tingkat keberhasilan (*completion rate*). |
-| **Pengaturan & Personalisasi** | Kustomisasi durasi default, pengaktifan/penonaktifan sensor gerak, pemilihan tema (Dark, Light, System), dan reset data yang aman. |
+| **Kotlin** | Bahasa pemrograman utama yang digunakan untuk membuat seluruh kode aplikasi. |
+| **Jetpack Compose** | Toolkit modern dari Google untuk mendesain tampilan antarmuka (UI) menggunakan kode Kotlin langsung tanpa file layout XML. |
+| **MVVM (Model-View-ViewModel)** | Pola arsitektur yang memisahkan bagian tampilan (**View**), pengelola alur data (**ViewModel**), dan sumber data (**Model**) agar kode rapi dan mudah dirawat. |
+| **SQLite / Room Database** | Database lokal di dalam perangkat Android untuk menyimpan data riwayat belajar secara aman dan permanen. |
+| **Android Sensor API** | Layanan resmi Android (`SensorManager`) untuk membaca data dari sensor fisik yang terpasang di HP. |
+| **DataStore Preferences** | Penyimpanan lokal ringan untuk menyimpan preferensi pengguna seperti tema dan durasi default. |
 
 ---
 
-## 3. Teknologi & Arsitektur
+## 4. Sensor yang Digunakan
 
-FocusSense dibangun dengan standar modern *Android Development Best Practices* menggunakan pendekatan **Clean Architecture** dan pola desain **MVVM (Model-View-ViewModel)**.
+Aplikasi FocusSense memanfaatkan sensor fisik bawaan perangkat melalui sistem Android:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                   Jetpack Compose UI Layer                  │
-│       (Screens, Custom Components, Material 3 Dark-First)   │
-└──────────────────────────────┬──────────────────────────────┘
-                               │ Observasi StateFlow & Kirim Event
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│                     Presentation Layer                      │
-│     (HomeViewModel, FocusTimerViewModel, SensorsViewModel,  │
-│      HistoryViewModel, StatisticsViewModel, SettingsViewModel│
-└──────────────────────────────┬──────────────────────────────┘
-                               │ Menjalankan Logika Bisnis
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│                        Domain Layer                         │
-│     (FocusTimerEngine, Monotonic TimeProvider, Model Mapper,│
-│      StatisticsCalculator, SessionState & Aggregators)      │
-└──────────────────────────────┬──────────────────────────────┘
-                               │ Koordinasi Data & Hardware
-               ┌───────────────┴───────────────┐
-               ▼                               ▼
-┌─────────────────────────────┐ ┌─────────────────────────────┐
-│        Data Layer           │ │       Hardware Sensors      │
-│  - Room Database (SQLite)   │ │  - Android SensorManager    │
-│  - DAOs & Entities          │ │  - AccelerometerMonitor     │
-│  - DataStore Preferences    │ │  - AmbientLightMonitor      │
-│  - Repository Pattern       │ │  - ProximityMonitor         │
-└─────────────────────────────┘ └─────────────────────────────┘
-```
+| Nama Sensor | Fungsi Sensor | Contoh Penggunaan di Aplikasi |
+| :--- | :--- | :--- |
+| **Accelerometer** (`Sensor.TYPE_ACCELEROMETER`) | Mengukur gaya percepatan dan pergerakan ponsel pada sumbu 3 dimensi (X, Y, Z). | Sensor utama untuk mendeteksi apakah ponsel diangkat, digeser, atau dimainkan saat sesi fokus sedang berjalan. Jika terdeteksi bergerak, aplikasi memunculkan peringatan gerak. |
+| **Proximity Sensor** (`Sensor.TYPE_PROXIMITY`) | Mengukur jarak objek di dekat bagian depan layar ponsel (menghasilkan status *Near* / Dekat atau *Far* / Jauh). | Sensor lingkungan untuk mendeteksi apakah layar ponsel tertutup atau diletakkan menghadap permukaan meja saat belajar. |
+| **Ambient Light Sensor** (`Sensor.TYPE_LIGHT`) | Mengukur tingkat intensitas pencahayaan di sekitar ruangan dalam satuan Lux. | Sensor lingkungan untuk memantau apakah ruangan tempat belajar memiliki penerangan yang cukup agar mata tidak cepat lelah (aktif jika perangkat memiliki sensor cahaya fisik). |
 
-### Stack Teknologi
-- **Bahasa Pemrograman:** Kotlin `2.2.10` (Modern, expressive, & null-safe)
-- **UI Framework:** Jetpack Compose dengan Material Design 3 (`androidx.compose.material3:1.3.1`)
-- **Arsitektur:** Clean Architecture + MVVM + Unidirectional Data Flow (UDF)
-- **Database Lokal:** SQLite via AndroidX Room `2.8.5` (dengan Google KSP 2)
-- **Manajemen State & Asinkron:** Kotlin Coroutines & Reactive `StateFlow`
-- **Penyimpanan Konfigurasi:** AndroidX DataStore Preferences `1.1.2`
-- **Navigasi:** AndroidX Navigation Compose `2.8.8`
-- **Build Tool:** Gradle `9.5.0` & Android Gradle Plugin (AGP) `9.3.3`
-- **Target SDK:** Android 15 (API 35) | **Minimum SDK:** Android 8.0 Oreo (API 26)
+> **Informasi Ketersediaan Sensor:**  
+> Setiap tipe smartphone memiliki kelengkapan sensor fisik yang berbeda-beda. FocusSense menggunakan **Accelerometer** sebagai sensor pemantau gerak utama, dan secara otomatis mendeteksi sensor lingkungan yang tersedia di perangkat (apakah **Proximity Sensor** atau **Ambient Light Sensor**) sehingga aplikasi tetap berjalan dengan stabil di berbagai perangkat.
 
 ---
 
-## 4. Sensor Hardware & Fungsinya
+## 5. Screenshot Aplikasi
 
-Aplikasi berinteraksi langsung dengan sensor fisik Android melalui `SensorManager` menggunakan delay frekuensi `SENSOR_DELAY_NORMAL` agar efisien terhadap konsumsi baterai dan CPU:
+Dokumentasi tampilan antarmuka aplikasi FocusSense yang diambil langsung dari perangkat HP fisik:
 
-### 1. Accelerometer (`Sensor.TYPE_ACCELEROMETER`)
-- **Fungsi:** Mendeteksi pergerakan fisik perangkat selama sesi belajar berlangsung.
-- **Implementasi:** Menghitung selisih magnitudo vektor 3D Euclidean antara frame berurutan:
-  $$\Delta = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2}$$
-- **Logika & Kalibrasi:** 
-  - Getaran statis di atas meja (*resting jitter* $0.01 - 0.05 \text{ m/s}^2$) difilter agar tidak terhitung.
-  - Ambang batas (*threshold*) $1.8 \text{ m/s}^2$ digunakan untuk mendeteksi tindakan nyata seperti mengangkat atau memainkan ponsel.
-  - Terdapat mekanisme *debouncing* (cooldown $1.5$ detik) untuk menghindari penghitungan ganda pada satu gerakan berkelanjutan.
-
-### 2. Ambient Light Sensor (`Sensor.TYPE_LIGHT`)
-- **Fungsi:** Mengukur intensitas cahaya ruangan dalam satuan Lux ($\text{lx}$) untuk memastikan kondisi pencahayaan ramah mata saat belajar.
-- **Kategori Ergonomi:**
-  - `< 50 lx` (`Sangat Redup`): Peringatan risiko kelelahan mata tinggi; disarankan menyalakan lampu meja.
-  - `50 - 200 lx` (`Redup`): Cukup untuk layar, namun kurang optimal untuk membaca buku/catatan fisik.
-  - `200 - 500 lx` (`Optimal`): Standar pencahayaan belajar yang direkomendasikan ISO.
-  - `> 500 lx` (`Terang`): Pencahayaan sangat terang / siang hari terbuka.
-- **Integrasi Sesi:** Nilai rata-rata pencahayaan selama sesi disimpan ke SQLite sebagai histori kenyamanan belajar.
-
-### 3. Proximity Sensor (`Sensor.TYPE_PROXIMITY`) — Adaptasi Hardware
-- **Fungsi:** Sensor alternatif cerdas (*hardware fallback*) yang aktif secara dinamis apabila perangkat pengguna tidak menyediakan sensor cahaya publik (seperti pada Samsung Galaxy M12).
-- **Implementasi:** Mendeteksi status jarak objek terhadap layar (*Near / Far*) tanpa manipulasi atau pemalsuan data, memberikan informasi bahwa perangkat berada dalam posisi terlindungi atau diletakkan dengan baik.
-
----
-
-## 5. Screenshot Tampilan Aplikasi
-
-Berikut adalah dokumentasi tampilan antarmuka (UI) aplikasi **FocusSense** yang diambil langsung dari perangkat fisik:
-
-| 1. Home Screen | 2. Focus Timer (Idle) | 3. Focus Timer (Running) |
+| 1. Halaman Utama (Home) | 2. Timer Belajar (Siap Mulai) | 3. Timer Berjalan (Running) |
 | :---: | :---: | :---: |
-| <img src="screenshots/01_home.png" width="240" alt="Home Screen" /> | <img src="screenshots/02_focus_timer.png" width="240" alt="Focus Timer Idle" /> | <img src="screenshots/03_timer_running.png" width="240" alt="Focus Timer Running" /> |
-| *Ringkasan progres harian, tombol Quick Start, dan status live sensor.* | *Pilihan durasi fokus (15m–60m) dan visualisasi circular progress.* | *Timer berjalan dengan deteksi gerakan aktif dan tombol jeda/selesai.* |
+| <img src="screenshots/01_home.png" width="230" alt="Halaman Utama" /> | <img src="screenshots/02_focus_timer.png" width="230" alt="Timer Belajar Siap Mulai" /> | <img src="screenshots/03_timer_running.png" width="230" alt="Timer Berjalan" /> |
+| *Ringkasan progres belajar hari ini dan status sensor aktif.* | *Pilihan preset waktu (15-60 menit) dan tombol mulai.* | *Timer berjalan dengan pemantau sensor gerak aktif.* |
 
-| 4. Hardware Sensors | 5. History Screen | 6. Statistics Screen |
+| 4. Pemantau Sensor | 5. Riwayat Belajar (History) | 6. Statistik & Grafik |
 | :---: | :---: | :---: |
-| <img src="screenshots/04_sensors.png" width="240" alt="Hardware Sensors" /> | <img src="screenshots/05_history.png" width="240" alt="History Screen" /> | <img src="screenshots/06_statistics.png" width="240" alt="Statistics Screen" /> |
-| *Telemetri live Accelerometer & Proximity/Light secara dinamis.* | *Riwayat sesi belajar, filter status, dan catatan refleksi pengguna.* | *Grafik batang aktivitas 7 hari dan metrik pencapaian belajar.* |
+| <img src="screenshots/04_sensors.png" width="230" alt="Pemantau Sensor" /> | <img src="screenshots/05_history.png" width="230" alt="Riwayat Belajar" /> | <img src="screenshots/06_statistics.png" width="230" alt="Statistik Belajar" /> |
+| *Data pembacaan sensor fisik yang terdeteksi di perangkat.* | *Daftar sesi belajar yang tersimpan beserta catatan refleksi.* | *Grafik batang 7 hari dan metrik pencapaian belajar.* |
 
 <p align="center">
-  <b>7. Settings Screen</b><br/>
-  <img src="screenshots/07_settings.png" width="260" alt="Settings Screen" /><br/>
-  <i>Pengaturan tema (Dark/Light/System), durasi default, toggle sensor gerak, dan manajemen data.</i>
+  <b>7. Pengaturan (Settings)</b><br/>
+  <img src="screenshots/07_settings.png" width="250" alt="Pengaturan Aplikasi" /><br/>
+  <i>Pilihan tema tampilan, durasi default, dan tombol aktivasi sensor gerak.</i>
 </p>
 
 ---
 
-## 6. Panduan Menjalankan Aplikasi
+## 6. Cara Menjalankan Aplikasi
 
-### Prasyarat
-1. **Java Development Kit (JDK):** OpenJDK versi 21 atau Android Studio JBR.
-2. **Android SDK:** Platform `android-35` dengan Build-Tools `35.0.0`.
-3. **Perangkat Uji:** Smartphone Android fisik (disarankan untuk menguji sensor fisik) atau Android Virtual Device (AVD).
+Langkah-langkah untuk menjalankan proyek FocusSense:
 
-### Langkah-Langkah Build & Install
+1. **Unduh Proyek (Clone Repository)**
+   ```bash
+   git clone https://github.com/verjosee/FocusSense.git
+   ```
+2. **Buka di Android Studio**
+   - Buka aplikasi **Android Studio**.
+   - Pilih menu **File > Open**, lalu arahkan ke folder proyek **FocusSense**.
+3. **Sinkronisasi Gradle (Gradle Sync)**
+   - Tunggu proses *Gradle Sync* selesai secara otomatis agar seluruh dependensi terpasang.
+4. **Jalankan Aplikasi**
+   - Sambungkan HP Android fisik menggunakan kabel data (pastikan mode *USB Debugging* aktif) atau gunakan Emulator Android Studio.
+   - Klik tombol **Run** (ikon segitiga hijau `▶`) di toolbar atas Android Studio.
 
+*(Opsi Build lewat Terminal)*:
 ```bash
-# 1. Kloning repository dari GitHub
-git clone https://github.com/verjosee/FocusSense.git
-cd FocusSense
-
-# 2. Compile & Build Debug APK menggunakan Gradle Wrapper
-# (Di Windows CMD / PowerShell)
+# Membuat file APK Debug
 gradlew.bat assembleDebug
-# (Di Linux / macOS)
-./gradlew assembleDebug
 
-# Lokasi file APK output:
-# app/build/outputs/apk/debug/app-debug.apk
-
-# 3. Jalankan pengujian otomatis (Unit Test)
-gradlew.bat test
-
-# 4. Pasang (Install) APK ke perangkat Android fisik yang terhubung via ADB
+# Menginstal APK ke perangkat melalui ADB
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
 
@@ -195,73 +149,69 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 
 # 🇬🇧 ENGLISH VERSION
 
-## 1. Application Name & Description
+## 1. About the Application
 
-**Application Name:** **FocusSense**  
-**Package Identifier:** `com.focussense.app`  
-**Target Audience:** Students, Academics, and Knowledge Workers aiming to maximize uninterrupted focus and maintain ergonomic study environments.
+**FocusSense** is an Android productivity timer application created to help students maintain focused study routines and minimize phone distractions.
 
-### Description
-**FocusSense** is an academic-grade Android productivity and environmental ergonomics application that integrates the Pomodoro study technique with real-time physical hardware sensor telemetry.
-
-Unlike generic timer applications, FocusSense communicates directly with onboard device hardware to monitor study integrity and ambient conditions:
-- **Distraction Detection:** Identifies device displacement, movement, and pickups when the user should be immersed in study.
-- **Environmental Awareness:** Evaluates ambient light illuminance or proximity status to encourage comfortable and healthy study environments.
-- **Reflective Analytics:** Automatically commits focus duration, movement count, and lighting averages into a local SQLite database for retrospective analysis.
+The application integrates standard study time management with onboard device sensors. During an active focus block, FocusSense detects whether the phone is moved or picked up and displays live hardware sensor telemetry to foster a disciplined study environment.
 
 ---
 
-## 2. Key Features
+## 2. Features
 
-- **Monotonic Precision Timer:** Relies on `SystemClock.elapsedRealtime()` to guarantee microsecond precision impervious to system clock adjustments or battery optimization throttling.
-- **Rapid Duration Presets:** One-tap presets for 15m, 25m (standard Pomodoro), 45m, and 60m focus blocks.
-- **Physical Motion Detection:** Real-time 3D vector calculation alerts users when excessive phone handling occurs during an active session.
-- **Live Hardware Sensors Screen:** In-depth hardware telemetry displaying real-time readings, sensor vendors, versions, power draw, and actionable ergonomic guidance.
-- **Smart Hardware Adaptation:** Dynamically detects installed sensors; natively monitors Ambient Light, or seamlessly switches to the Proximity sensor when Ambient Light is unavailable (e.g. on Samsung Galaxy M12 hardware).
-- **Session History & Reflection:** Comprehensive session log (*Completed*, *Interrupted*, *Cancelled*) with editable reflection notes.
-- **Interactive 7-Day Analytics:** Beautiful weekly distribution bar chart, total study hours, session completion rates, and daily milestones.
-- **Customizable Preferences:** Configurable default timer durations, motion alert toggles, theme switching (Dark, Light, System Default), and safe database reset capabilities.
+1. **Focus Study Timer**
+   - Countdown timer with an intuitive circular progress indicator.
+   - Preset durations: 15, 25 (standard Pomodoro), 45, and 60 minutes.
+   - Timer controls: Start, Pause, Resume, and Stop.
+
+2. **Motion Alert**
+   - Detects physical movement if the phone is picked up or moved during study time.
+   - Provides an on-screen warning and haptic feedback to remind students to stay focused.
+
+3. **Live Sensors Screen**
+   - Displays real-time hardware telemetry and readings from physical sensors.
+   - Shows live coordinate acceleration values and proximity/ambient status.
+
+4. **Study History & Reflection Notes**
+   - Saves all completed and interrupted study sessions into a local database.
+   - Records session date, time, actual duration, and movement events.
+   - Allows students to write and edit reflection notes for each study block.
+
+5. **Study Statistics**
+   - Displays total study hours, today's focused time, and completed session count.
+   - Features a 7-day bar chart showing daily study progress.
+
+6. **Application Settings**
+   - Theme options: Dark Mode, Light Mode, or Follow System.
+   - Default study duration preference.
+   - Toggle to turn the motion alert on or off.
+   - Option to clear local study history.
 
 ---
 
-## 3. Technology Stack & Architecture
+## 3. Technologies Used
 
-Built in accordance with Google's recommended modern Android architecture guidelines using **Clean Architecture** and **MVVM (Model-View-ViewModel)** with Unidirectional Data Flow (UDF).
+| Technology | Description |
+| :--- | :--- |
+| **Kotlin** | Primary programming language used across the entire application. |
+| **Jetpack Compose** | Google's modern declarative UI toolkit used to design screens in Kotlin without XML files. |
+| **MVVM (Model-View-ViewModel)** | Architectural design pattern separating the UI (**View**), data logic (**ViewModel**), and storage (**Model**). |
+| **Room Database (SQLite)** | Android local persistence library to securely store study session history on the device. |
+| **Android Sensor API** | Native Android framework (`SensorManager`) used to read hardware sensor values. |
+| **DataStore Preferences** | Key-value storage for app settings such as theme and timer preferences. |
 
-| Layer / Component | Technology | Specification / Version |
+---
+
+## 4. Sensors Used
+
+| Sensor Name | Function | Application Usage |
 | :--- | :--- | :--- |
-| **Language** | Kotlin | `2.2.10` |
-| **UI Toolkit** | Jetpack Compose (BOM) | Material 3 (`1.3.1`) |
-| **Local Persistence** | SQLite via Room | `2.8.5` (with KSP 2) |
-| **Asynchronous Streaming**| Kotlin Coroutines & Flow | `StateFlow` & `SharedFlow` |
-| **Preferences Store** | AndroidX DataStore | `1.1.2` |
-| **In-App Navigation** | Navigation Compose | `2.8.8` |
-| **Build Automation** | Gradle & AGP | Gradle `9.5.0` / AGP `9.3.3` |
-| **Target Compatibility** | Android SDK | Min: API 26 (Android 8.0) / Target: API 35 (Android 15) |
+| **Accelerometer** (`Sensor.TYPE_ACCELEROMETER`) | Measures acceleration forces along the X, Y, and Z axes. | Primary sensor used to detect whether the user picks up or moves the phone during study sessions, triggering a motion alert. |
+| **Proximity Sensor** (`Sensor.TYPE_PROXIMITY`) | Measures whether an object is close to the front of the screen (*Near* or *Far*). | Environmental sensor that detects if the phone screen is covered or placed face-down on a desk. |
+| **Ambient Light Sensor** (`Sensor.TYPE_LIGHT`) | Measures surrounding ambient light levels in Lux. | Environmental sensor used to evaluate if study room lighting is adequate (active on devices that feature a hardware light sensor). |
 
----
-
-## 4. Hardware Sensors & Functionality
-
-FocusSense registers hardware listeners via Android's `SensorManager` with `SENSOR_DELAY_NORMAL` to ensure optimal performance and minimal battery draw:
-
-### 1. Accelerometer (`Sensor.TYPE_ACCELEROMETER`)
-- **Role:** Tracks physical handling and movement during study intervals.
-- **Math:** Computes 3D Euclidean acceleration delta:
-  $$\Delta = \sqrt{\Delta x^2 + \Delta y^2 + \Delta z^2}$$
-- **Calibration:** Filters out normal desk vibration ($0.01 - 0.05 \text{ m/s}^2$) with a calibrated $1.8 \text{ m/s}^2$ threshold and a $1.5\text{s}$ debounce timer.
-
-### 2. Ambient Light Sensor (`Sensor.TYPE_LIGHT`)
-- **Role:** Measures room illuminance in Lux ($\text{lx}$) to prevent eye strain.
-- **Standards:**
-  - `< 50 lx`: `Very Dim` (Severe eye strain risk; task lighting required).
-  - `50 - 200 lx`: `Dim` (Acceptable for backlit screens; insufficient for paper notes).
-  - `200 - 500 lx`: `Optimal` (Meets ISO study lighting standards).
-  - `> 500 lx`: `Bright` (Daylight / high ambient illumination).
-
-### 3. Proximity Sensor (`Sensor.TYPE_PROXIMITY`)
-- **Role:** Dynamic fallback sensor for hardware configurations where ambient light sensors are restricted or absent (e.g., Samsung Galaxy M12).
-- **Execution:** Reports real-time binary near/far object detection without simulated or synthetic data.
+> **Sensor Availability Note:**  
+> Hardware configurations vary across Android phones. FocusSense uses the **Accelerometer** as the primary motion monitor and dynamically checks available environmental sensors (**Proximity** or **Ambient Light**) to maintain stability on different devices.
 
 ---
 
@@ -269,49 +219,30 @@ FocusSense registers hardware listeners via Android's `SensorManager` with `SENS
 
 | 1. Home Screen | 2. Focus Timer (Idle) | 3. Focus Timer (Running) |
 | :---: | :---: | :---: |
-| <img src="screenshots/01_home.png" width="240" alt="Home Screen" /> | <img src="screenshots/02_focus_timer.png" width="240" alt="Focus Timer Idle" /> | <img src="screenshots/03_timer_running.png" width="240" alt="Focus Timer Running" /> |
+| <img src="screenshots/01_home.png" width="230" alt="Home Screen" /> | <img src="screenshots/02_focus_timer.png" width="230" alt="Focus Timer Idle" /> | <img src="screenshots/03_timer_running.png" width="230" alt="Focus Timer Running" /> |
 
-| 4. Hardware Sensors | 5. History Screen | 6. Statistics Screen |
+| 4. Sensors Screen | 5. History Screen | 6. Statistics Screen |
 | :---: | :---: | :---: |
-| <img src="screenshots/04_sensors.png" width="240" alt="Hardware Sensors" /> | <img src="screenshots/05_history.png" width="240" alt="History Screen" /> | <img src="screenshots/06_statistics.png" width="240" alt="Statistics Screen" /> |
+| <img src="screenshots/04_sensors.png" width="230" alt="Sensors Screen" /> | <img src="screenshots/05_history.png" width="230" alt="History Screen" /> | <img src="screenshots/06_statistics.png" width="230" alt="Statistics Screen" /> |
 
 <p align="center">
   <b>7. Settings Screen</b><br/>
-  <img src="screenshots/07_settings.png" width="260" alt="Settings Screen" />
+  <img src="screenshots/07_settings.png" width="250" alt="Settings Screen" />
 </p>
 
 ---
 
 ## 6. How to Run the Application
 
-### Prerequisites
-- **JDK:** OpenJDK 21
-- **Android SDK:** Platforms `android-35` and Build Tools `35.0.0`
-- **Device:** Physical Android phone (recommended for sensor testing) or Android Emulator
-
-### Build & Installation Commands
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/verjosee/FocusSense.git
-cd FocusSense
-
-# 2. Assemble Debug APK
-gradlew.bat assembleDebug
-
-# Output APK path:
-# app/build/outputs/apk/debug/app-debug.apk
-
-# 3. Execute Automated Unit Tests
-gradlew.bat test
-
-# 4. Install onto connected Android hardware
-adb install -r app/build/outputs/apk/debug/app-debug.apk
-```
-
----
-
-<p align="center">
-  Developed with dedication for academic productivity and digital well-being.<br/>
-  <b>Repository URL:</b> <a href="https://github.com/verjosee/FocusSense">https://github.com/verjosee/FocusSense</a>
-</p>
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/verjosee/FocusSense.git
+   ```
+2. **Open in Android Studio**
+   - Launch **Android Studio**.
+   - Select **File > Open** and open the **FocusSense** project directory.
+3. **Gradle Sync**
+   - Wait for the automatic Gradle Sync process to finish.
+4. **Run on Device / Emulator**
+   - Connect an Android device via USB with *USB Debugging* enabled or launch an Android Emulator.
+   - Click the green **Run** button (`▶`) in Android Studio.
